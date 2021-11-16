@@ -7,6 +7,20 @@ using namespace std;
 // - 메모리 할당 후 시작 주소를 가리키는 포인터를 반환해준다.(메모리 부족은 NULL)
 // free
 // 
+
+// new / delete
+// - C++에 추가됨
+// malloc/free는 함수! new/delete는 연산자
+
+
+// new[] / delete[]
+// - new가 malloc에 비해 좋지만,여러개가 피룡할수도 있다!
+
+// malloc/free vs new/delete
+// - 사용 편의성 -> new/delete가 훨씬 좋다!
+// - 타입에 상관없이 특정한 크기의 메모리 영역을 할당받을려면 -> malloc/free
+
+// 하지만 가장 중요한 차이점은 malloc/free와 다르게 new/delete는 생성자/소멸자를 호출해준다.
 class Monster {
 public:
 	int _hp;
@@ -29,7 +43,7 @@ int main()
 
 	free(pointer); //필요가 없어지면 놔주면 된다!
 	//free를 하지 않으면 메모리가 계속 늘어나서 메모리 눗
-	free(pointer);
+	//free(pointer);
 	//Double free
 	// - 이건 대부분 그냥 크러시만 나고 끝난다.
 
@@ -41,6 +55,27 @@ int main()
 	//m1->_hp = 100;
 	//m1->_x = 1;
 	//m1->_y = 2;
+
+
+	Monster* m2 = new Monster;
+	//기본적으로 malloc의 오류는 다 뜬다.
+	m2->_hp = 200;
+	m2->_x = 2;
+	m2->_y = 3;
+	delete m2; //free처럼 무조건 해주자!
+
+	Monster* m3 = new Monster[5];
+	m3->_hp = 200;
+	m3->_x = 2;
+	m3->_y = 3;
+
+	Monster* m4 = (m3+1);
+	delete[] m3;
+
+
 	return 0;
+
+
+	
 }
 
